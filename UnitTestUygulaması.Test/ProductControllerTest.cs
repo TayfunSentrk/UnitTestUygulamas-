@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using Microsoft.AspNetCore.Mvc;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,17 @@ namespace UnitTestUygulaması.Test
                 new Product() { Id = 1, Name = "Kalem", Price = 100, Stock = 50, Color = "Kırmızı" },
                 new Product() { Id = 2, Name = "Defter", Price = 200, Stock = 500, Color = "Mavi" }
             };
+        }
+
+
+        //Paremetre almadığı için fact kullandım
+        //View Result dönüyor mu diye kontrol edildi
+
+        [Fact]
+        public async void Index_ActionExecutes_ReturnView()
+        {
+            var result=await controller.Index();
+            Assert.IsType<ViewResult>(result);
         }
     }
 }
