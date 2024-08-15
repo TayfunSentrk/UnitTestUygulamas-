@@ -50,6 +50,7 @@ namespace UnitTestUygulaması.Test
             Assert.Equal<int>(2, productList.Count());// Product Listesi 2 adet mi o kontrol edildi
         }
 
+        [Fact]  
         public async void Details_IdIsNull_ReturnRedirectToIndexAction()
         {
             //IAction Result Dönüyor
@@ -60,6 +61,24 @@ namespace UnitTestUygulaması.Test
 
             //Action İsmi Index mi o kontrol ediliyor
             Assert.Equal("Index", redirect.ActionName);
+        }
+
+
+        [Fact]
+
+        public async void Details_IdInValid_ReturnNotFound()
+        {
+            Product product = null;
+            //eğer verilen id veritabanında yoksa örnek olarak verilen product gibi null gelmesi sağlandı
+            _mockRepo.Setup(m => m.GetAsync(0)).ReturnsAsync(product);
+
+            //IactionResult Tipinde döner
+            var result = await controller.Details(0);
+            //Tipi NotFoundResult mi diye kontrol edildi
+            var redirect =Assert.IsType<NotFoundResult>(result);
+            //Status Code 404 mi diye kontrol edildi
+            Assert.Equal<int>(404, redirect.StatusCode);
+          
         }
     }
 }
