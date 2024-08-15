@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestUygulaması.Web", "UnitTestUygulaması.Web\UnitTestUygulaması.Web.csproj", "{9C214D95-7C1F-4AD8-9F8E-3223EA0B6412}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestUygulaması.Test", "UnitTestUygulaması.Test\UnitTestUygulaması.Test.csproj", "{99C450AE-73CE-4165-894A-840515F08344}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9C214D95-7C1F-4AD8-9F8E-3223EA0B6412}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C214D95-7C1F-4AD8-9F8E-3223EA0B6412}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C214D95-7C1F-4AD8-9F8E-3223EA0B6412}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99C450AE-73CE-4165-894A-840515F08344}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99C450AE-73CE-4165-894A-840515F08344}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99C450AE-73CE-4165-894A-840515F08344}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99C450AE-73CE-4165-894A-840515F08344}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
