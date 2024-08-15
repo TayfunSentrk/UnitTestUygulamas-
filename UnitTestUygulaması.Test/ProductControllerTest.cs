@@ -80,5 +80,21 @@ namespace UnitTestUygulaması.Test
             Assert.Equal<int>(404, redirect.StatusCode);
           
         }
+
+
+        [Theory]
+        [InlineData(1)]
+        public async void Details_ValidId_ReturnProduct(int id)
+        {
+            var product = _products.First(p => p.Id == id);//verilen id ye göre elimizde var olan _product listesinde ilk id 'le aynı olan ürün getiriliyor
+            _mockRepo.Setup(m=>m.GetAsync(id)).ReturnsAsync(product); //Eğer getAsync methodu çalıştırılırsa geriye product dönüyor  
+
+            var result = await controller.Details(id);  //IactionResult tipinde döner
+
+            var viewResult=Assert.IsType<ViewResult>(result);//ViewResult dönüyor mu kontrol ediliyor
+            var resultProduct = Assert.IsAssignableFrom<Product>(viewResult.Model); //Model Product tipinde mi kontrol ediliyor
+            Assert.Equal(product.Id, resultProduct.Id);//Beklenen ıd ile gerçekleşen Id aynı mı kontrol ediliyor
+            Assert.Equal(product.Name, resultProduct.Name);//Beklenen isim ile gerçekleşen isim aynı mı kontrol ediliyor
+        }
     }
 }
