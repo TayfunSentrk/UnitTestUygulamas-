@@ -49,5 +49,17 @@ namespace UnitTestUygulaması.Test
             var productList = Assert.IsAssignableFrom<IEnumerable<Product>>(viewResult.Model); //product list şeklinde dönmesi sağlandı.
             Assert.Equal<int>(2, productList.Count());// Product Listesi 2 adet mi o kontrol edildi
         }
+
+        public async void Details_IdIsNull_ReturnRedirectToIndexAction()
+        {
+            //IAction Result Dönüyor
+            var result = await controller.Details(null);
+
+            //Null verdiğimizde dönüş tipi RedirectActionResult mu o okontrol ediliyor
+            var redirect=Assert.IsType<RedirectToActionResult>(result);
+
+            //Action İsmi Index mi o kontrol ediliyor
+            Assert.Equal("Index", redirect.ActionName);
+        }
     }
 }
