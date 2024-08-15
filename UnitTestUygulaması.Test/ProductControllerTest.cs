@@ -38,5 +38,16 @@ namespace UnitTestUygulaması.Test
             var result=await controller.Index();
             Assert.IsType<ViewResult>(result);
         }
+        [Fact]
+        public async void Index_ActionExecutes_ReturnProductList()
+        {
+            _mockRepo.Setup(m => m.GetAllAsync()).ReturnsAsync(_products);//GetAllAsync fonskiyonu çağırıldığında _product değişkenindeki değerler dönücek
+
+            var result=await controller.Index();    
+
+            var viewResult=Assert.IsType<ViewResult>(result);//viewResult dönüyor mu o kontrol edildi
+            var productList = Assert.IsAssignableFrom<IEnumerable<Product>>(viewResult.Model); //product list şeklinde dönmesi sağlandı.
+            Assert.Equal<int>(2, productList.Count());// Product Listesi 2 adet mi o kontrol edildi
+        }
     }
 }
