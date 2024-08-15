@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using UnitTestUygulamasý.Web.Models;
+using UnitTestUygulamasý.Web.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>)); //IRepository'den nesne örneklemesi alýndýðýnda Repository sýnýfý kullanýlýcak
 builder.Services.AddDbContext<UnitTestDbContext>(options => //Appsettinjson'de yer alan sql yolu dll olarak program cs'te geçildi
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"));
