@@ -211,5 +211,19 @@ namespace UnitTestUygulaması.Test
             var redirect=Assert.IsType<NotFoundResult>(result);//Eğer id'ler örtüşmüyorsa NotFoundResult Dönüyor mu kontrol edildi.
         }
 
+        [Theory]
+        [InlineData(1)]
+
+        public void EditPost_InvalidModelState_ReturnView(int productId)
+        {
+            controller.ModelState.AddModelError("Name", ""); //ModelState'de hata olması için hata fırlattık
+
+            var result = controller.Edit(productId, _products.First(x => x.Id == productId));//ProductId ile product'tan gelen id aynı mı
+
+            var viewResult= Assert.IsType<ViewResult>(result);  //Eğer modelstate hatalı ise viewResult dönüyor mu
+
+            Assert.IsType<Product>(viewResult.Model);//Eğer viewResult dönüyorsa product nesnesi model olarak gönderiliyor mu
+        }
+
     }
 }
