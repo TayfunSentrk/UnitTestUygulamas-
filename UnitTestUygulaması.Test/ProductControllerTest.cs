@@ -141,5 +141,18 @@ namespace UnitTestUygulaması.Test
             Assert.Equal(_products.First().Id, newProduct.Id);//product listesinden ilk elamanın Id'si ile newProduct.Id aynı diye kontrol ettim
         }
 
+
+        [Fact]
+
+        public async void Create_InvalidModelState_NeverCreateExecute()
+        {
+            controller.ModelState.AddModelError("Name", "");//Burda AddModelError ile modelstate'de hata fırlatıyorum
+
+            var result = await controller.Create(_products.First());
+
+            _mockRepo.Verify(repo=>repo.Create(It.IsAny<Product>()), Times.Never);//Çalışmadığını kontrol ediyorum //Burda repository'den gelen method çalışmıyor mu diye kontrol ediyorum
+
+        }
+
     }
 }
