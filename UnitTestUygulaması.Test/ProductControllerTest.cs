@@ -238,5 +238,19 @@ namespace UnitTestUygulaması.Test
 
             Assert.Equal("Index", redirect.ActionName);//Döndüğü yer Index mi o kontrol ediliyor
         }
+
+        [Theory]
+        [InlineData(1)] 
+
+        public void EditPost_ValidModelState_UpdateMethodExecute(int productId)
+        {
+            var product = _products.First(x => x.Id == productId); //verilen id ile product değişkeni oluşturuldu
+
+            _mockRepo.Setup(x => x.Update(product));//mockup nesnesi üzerinden setup işlemi yapıldı
+             
+            controller.Edit(productId, product); //Edit methodu için productId ve product parametreleri geçildi
+
+            _mockRepo.Verify(x=>x.Update(It.IsAny<Product>()),Times.Once); //IRepository'den update çalışılıp çalışmadığı kontrol edildi
+        }
     }
 }
