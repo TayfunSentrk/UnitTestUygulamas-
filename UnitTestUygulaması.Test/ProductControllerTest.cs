@@ -202,5 +202,14 @@ namespace UnitTestUygulaması.Test
 
         }
 
+        [Theory]
+        [InlineData(1)] 
+        public void EditPost_IdIsNotEqualProduct_ReturnNotFound(int productId)
+        {
+            var result=controller.Edit(2,_products.First(x=>x.Id==productId));   //Burda verilen ıd ile product'da yer alan id örtüşüp örtüşmediğine bakıldı
+
+            var redirect=Assert.IsType<NotFoundResult>(result);//Eğer id'ler örtüşmüyorsa NotFoundResult Dönüyor mu kontrol edildi.
+        }
+
     }
 }
