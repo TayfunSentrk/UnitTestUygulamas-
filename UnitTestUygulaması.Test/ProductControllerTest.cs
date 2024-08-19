@@ -117,5 +117,15 @@ namespace UnitTestUygulaması.Test
 
         }
 
+        [Fact]
+       public async void Create_ValidModelState_ReturnRedirectToIndexAction()
+        {
+            var result = await controller.Create(_products.First());
+
+            var redirect=Assert.IsType<RedirectToActionResult>(result);//RedirectToActionResult Tipinde mi kontrol ettim
+                
+            Assert.Equal("Index",redirect.ActionName);//Gittiği yer Index isminde mi kontrol ettim
+        }
+
     }
 }
