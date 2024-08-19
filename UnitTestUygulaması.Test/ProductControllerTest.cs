@@ -181,5 +181,26 @@ namespace UnitTestUygulaması.Test
             Assert.Equal<int>(404, redirect.StatusCode); //Status Code 404 şeklinde mi kontrol ediliyor
         }
 
+        [Theory]
+
+        [InlineData(1)]
+
+        public async void Edit_IdValid_ReturnProduct(int productId)
+        {
+
+            var product = _products.First(x=>x.Id==productId);//product tipinde bir değişken tanımlanarak _product listesinden parametre olarak verdiğimiz id ile eşleşen product bulduk
+
+            _mockRepo.Setup(x => x.GetAsync(productId)).ReturnsAsync(product); //verilen id göre getasync methodu çağırıldığı zaman product değişkeni dönücek
+
+            var result = await controller.Edit(productId); //Mvc tarafında edit methodu çağırılıyor
+
+            var viewResult = Assert.IsType<ViewResult>(result); //Dönen tip viewResult mı kontrol ediliyor
+
+            var resultProduct = Assert.IsAssignableFrom<Product>(viewResult.Model);//resultproduct Product tipinde referans verebilir mi kontrol ediliyor
+            Assert.Equal(product.Id, resultProduct.Id);//Beklenen Id ile gerçekleşen ıd aynı mı kontrol ediliyor
+            Assert.Equal(product.Name, resultProduct.Name);//Beklenen isim ile gerçekleşen isim aynı mı kontrol ediliyor
+
+        }
+
     }
 }
