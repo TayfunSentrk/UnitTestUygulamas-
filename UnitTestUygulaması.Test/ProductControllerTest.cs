@@ -154,5 +154,18 @@ namespace UnitTestUygulaması.Test
 
         }
 
+
+        [Fact]
+        public async void Edit_IdIsNull_ReturnRedirectToIndexAction()
+        {
+
+            var result = await controller.Edit(null); //id null geldiği durumda edit methodu test ediliyor
+
+            var redirect = Assert.IsType<RedirectToActionResult>(result);//Bu Method çalıştığında RedirectActionResult dönüyor mu kontrol ediliyor
+
+            Assert.Equal("Index", redirect.ActionName); //Gittiği yer Index sayfası mı o kontrol ediliyor
+
+        }
+
     }
 }
