@@ -96,5 +96,16 @@ namespace UnitTestUygulaması.Test
             Assert.Equal(product.Id, resultProduct.Id);//Beklenen ıd ile gerçekleşen Id aynı mı kontrol ediliyor
             Assert.Equal(product.Name, resultProduct.Name);//Beklenen isim ile gerçekleşen isim aynı mı kontrol ediliyor
         }
+
+        [Fact]
+
+        public async void Create_ActionExecutes_ReturnView()
+        {
+            var result = controller.Create(); //Create get methodu çalıştırılıyor
+
+            Assert.IsType<ViewResult>(result); //Dönüş tipi ViewResult olacak şekilde geliyor mu diye bakılıyor
+        }
+
+
     }
 }
