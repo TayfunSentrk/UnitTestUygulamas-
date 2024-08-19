@@ -127,5 +127,19 @@ namespace UnitTestUygulaması.Test
             Assert.Equal("Index",redirect.ActionName);//Gittiği yer Index isminde mi kontrol ettim
         }
 
+        [Fact]
+
+        public async void Create_ValidModelState_CreateMethodExecute()
+        {
+            //Modelsatate doğrıysa create methodu çalışıyor mu test etmek için
+
+            Product newProduct = null;
+            _mockRepo.Setup(repo=>repo.Create(It.IsAny<Product>())).Callback<Product>(x=>newProduct=x);//Burda herhangi bir product gönderilirse newProduct nesnesine eklenen product setlencek
+            var result = await controller.Create(_products.First());//Create methodu çağırılıyor
+
+            _mockRepo.Verify(repo=>repo.Create(It.IsAny<Product>()), Times.Once);//Create methodu bir kez çalışıyor mı kontrol ettim
+            Assert.Equal(_products.First().Id, newProduct.Id);//product listesinden ilk elamanın Id'si ile newProduct.Id aynı diye kontrol ettim
+        }
+
     }
 }
