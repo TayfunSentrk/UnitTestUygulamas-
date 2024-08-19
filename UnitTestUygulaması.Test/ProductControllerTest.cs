@@ -215,6 +215,8 @@ namespace UnitTestUygulaması.Test
         [InlineData(1)]
 
         public void EditPost_InvalidModelState_ReturnView(int productId)
+
+
         {
             controller.ModelState.AddModelError("Name", ""); //ModelState'de hata olması için hata fırlattık
 
@@ -225,5 +227,16 @@ namespace UnitTestUygulaması.Test
             Assert.IsType<Product>(viewResult.Model);//Eğer viewResult dönüyorsa product nesnesi model olarak gönderiliyor mu
         }
 
+        [Theory]
+        [InlineData(1)] 
+
+        public void EditPost_ValidModelState_ReturnRedirectToIndexAction(int productId)
+        {
+            var result= controller.Edit(productId,_products.First(x=>x.Id== productId));    //productId ile product'tan gelen id aynı mı test ediliyor
+
+            var redirect=Assert.IsType<RedirectToActionResult>(result);//Dönüş tipi redirectActionResult dönüyor mu o kontrol ediliyor
+
+            Assert.Equal("Index", redirect.ActionName);//Döndüğü yer Index mi o kontrol ediliyor
+        }
     }
 }
