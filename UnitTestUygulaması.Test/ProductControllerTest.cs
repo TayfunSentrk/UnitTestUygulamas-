@@ -167,5 +167,19 @@ namespace UnitTestUygulaması.Test
 
         }
 
+        [Theory]
+        [InlineData(3)]
+        public async void Edit_IdInValid_ReturnNotFound(int productId)
+        {
+            Product product = null; //Burda id eğer bulunmayan bir product Id ise null veri getirmek için
+            _mockRepo.Setup(x => x.GetAsync(productId)).ReturnsAsync(product);//Burda GetAsync methodu çağırıldığında null olan product olarak dönsün
+
+            var result=await controller.Edit(productId); //edit methodu çalıştırılıyor
+
+            var redirect=Assert.IsType<NotFoundResult>(result); //Dönüş tipi NotFoundResult tipinde mi kontrol ediliyor
+
+            Assert.Equal<int>(404, redirect.StatusCode); //Status Code 404 şeklinde mi kontrol ediliyor
+        }
+
     }
 }
