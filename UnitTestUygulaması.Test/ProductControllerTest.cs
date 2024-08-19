@@ -99,13 +99,23 @@ namespace UnitTestUygulaması.Test
 
         [Fact]
 
-        public async void Create_ActionExecutes_ReturnView()
+        public  void Create_ActionExecutes_ReturnView()
         {
             var result = controller.Create(); //Create get methodu çalıştırılıyor
 
             Assert.IsType<ViewResult>(result); //Dönüş tipi ViewResult olacak şekilde geliyor mu diye bakılıyor
         }
+        [Fact]
+        public async void Create_InvalidModelState_ReturnView()
+        {
+            controller.ModelState.AddModelError("Name", "Name alanı gereklidir");//Burda invalid modelstate olması için hata fırlattım
 
+            var result=await controller.Create(_products.First()); //Daha önce oluşturulmuş products listesinde ilk elemanı ekliyorum
+
+            var viewResult = Assert.IsType<ViewResult>(result);//Result tipi ViewResult şeklinde mi oluyor o kontrol edildi
+            Assert.IsType<Product>(viewResult.Model);//Modelden gelen veri Product tipinde;
+
+        }
 
     }
 }
