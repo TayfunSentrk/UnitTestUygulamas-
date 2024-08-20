@@ -260,5 +260,19 @@ namespace UnitTestUygulaması.Test
 
             Assert.IsType<NotFoundResult>(result);//Dönen result değeri mi NotFoundResult Tipinde mi
         }
+
+
+        [Theory]
+        [InlineData(0)]
+
+        public async void Delete_IdIsNotEqualProduct_ReturnNotFound(int productId)
+        {
+            Product product = null; //Burda Product nesnesinden üretilen product değişkenini null setledim
+
+            _mockRepo.Setup(x=>x.GetAsync(productId)).ReturnsAsync(product);//Olmayan bir id geldiğinde null olarak dönücek
+
+            var result=await controller.Delete(productId);//Parametre olarak productId'i delete methoduna gönderiyorum
+            Assert.IsType<NotFoundResult>(result);//NotFoundResultDönüyor mu kontrol ediyorum
+        }
     }
 }
