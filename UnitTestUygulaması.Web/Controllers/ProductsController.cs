@@ -162,7 +162,7 @@ namespace UnitTestUygulaması.Web.Controllers
         /// </summary>
         /// <param name="id">Ürün kimliği.</param>
         /// <returns>Ürün varsa true, yoksa false döner.</returns>
-        private bool ProductExists(int id)
+        public bool ProductExists(int id)
         {
             var product = _repository.GetAsync(id).Result;
 

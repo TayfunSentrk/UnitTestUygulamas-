@@ -317,5 +317,19 @@ namespace UnitTestUygulaması.Test
             _mockRepo.Verify(x=>x.Delete(It.IsAny<Product>()),Times.Once);// IRepository'de delete methodu bir kez çalıştı mı kontrol ettim
 
         }
+
+        [Theory]
+
+        [InlineData(5)]
+        public void ProductExists_ExistProduct_ReturnBool(int productId)
+        {
+            var product=_products.FirstOrDefault(x=>x.Id == productId); //verilen paremetreye göre product geliyor mu kontrol etmek için
+
+            _mockRepo.Setup(x => x.GetAsync(productId)).ReturnsAsync(product);//GetAsync Methodu Çağırıldığında dönüş değeri product değişkeni olucak
+
+            var result=controller.ProductExists(productId);//Method çağırılıyor
+
+            Assert.True(result);//Eğer dönüş değeri true mı kontrol ediliyor
+        }
     }
 }
