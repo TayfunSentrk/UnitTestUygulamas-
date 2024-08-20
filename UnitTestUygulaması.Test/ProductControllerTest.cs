@@ -291,5 +291,17 @@ namespace UnitTestUygulaması.Test
             Assert.IsAssignableFrom<Product>(viewResult.Model);//Product Tipinde olan bir model mi kontrol ettim
 
         }
+
+        [Theory]
+
+        [InlineData(1)] 
+        public async void DeleteConfirmed_ActionExecutes_ReturnRedirectToIndexAction(int productId)
+        {
+           var result=await controller.DeleteConfirmed(productId); //DeleteConfirmed methodu çağırılarak parametre olarak verilen productId veriyorum
+
+          var redirect=Assert.IsType<RedirectToActionResult>(result);//Dönüş Tipi RedirectToActionResult'mi kontrol ediyorum
+
+            Assert.Equal("Index", redirect.ActionName);//Yönlendirme methodunun ismi Index mi kontrol ediyorum
+        }
     }
 }
