@@ -303,5 +303,19 @@ namespace UnitTestUygulaması.Test
 
             Assert.Equal("Index", redirect.ActionName);//Yönlendirme methodunun ismi Index mi kontrol ediyorum
         }
+
+        [Theory]
+
+        [InlineData(1)] 
+        public async void DeleteConfirmed_ActionExecutes_DeleteMethodExecute(int productId)
+        {
+           var product=_products.First(x => x.Id == productId);//değişken olan belirtilen productListesinde parametre olan verilen productId ile eşleşen product getirildi
+
+            _mockRepo.Setup(x => x.Delete(product));//IRepository'de delete methodu çağırılırsa product silinsin dedim
+
+            await controller.DeleteConfirmed(productId); //DeleteConfirmed methodu çağırıldı
+            _mockRepo.Verify(x=>x.Delete(It.IsAny<Product>()),Times.Once);// IRepository'de delete methodu bir kez çalıştı mı kontrol ettim
+
+        }
     }
 }
