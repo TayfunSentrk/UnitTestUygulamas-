@@ -252,5 +252,13 @@ namespace UnitTestUygulaması.Test
 
             _mockRepo.Verify(x=>x.Update(It.IsAny<Product>()),Times.Once); //IRepository'den update çalışılıp çalışmadığı kontrol edildi
         }
+
+        [Fact]
+        public async void Delete_IsIsNull_ReturnNotFound()
+        {
+            var result =await controller.Delete(null);//Null gönderdiğimizde result değerini dönüyor
+
+            Assert.IsType<NotFoundResult>(result);//Dönen result değeri mi NotFoundResult Tipinde mi
+        }
     }
 }
