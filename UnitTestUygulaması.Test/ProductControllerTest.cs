@@ -274,5 +274,22 @@ namespace UnitTestUygulaması.Test
             var result=await controller.Delete(productId);//Parametre olarak productId'i delete methoduna gönderiyorum
             Assert.IsType<NotFoundResult>(result);//NotFoundResultDönüyor mu kontrol ediyorum
         }
+
+        [Theory]
+        [InlineData(1)] 
+
+        public async void Delete_ActionExecutes_ReturnProduct(int productId)
+        {
+            var product = _products.First(x => x.Id == productId); //Veritabanında olan bir id olduğunu varsayarak bizim oluşturduğumuz product listesinden parametre ile gelen id eşit product alıyoruz
+
+            _mockRepo.Setup(x => x.GetAsync(productId)).ReturnsAsync(product);//GetAsync methodu çağırıldığında product değişkenin dönmesini sağlıyorum
+
+            var result= await controller.Delete(productId);  //Delete methodu parametre ile gelen delete methodu çalıştırılıyor
+
+            var viewResult=Assert.IsType<ViewResult>(result);//Dönen değer viewResult tipinde mi kontrol ediliyor
+
+            Assert.IsAssignableFrom<Product>(viewResult.Model);//Product Tipinde olan bir model mi kontrol ettim
+
+        }
     }
 }
